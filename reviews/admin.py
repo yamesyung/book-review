@@ -9,8 +9,18 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ('title', 'isbn__exact', 'publisher__name',)
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    fields = ('content', 'rating', 'creator', 'book',)
+
+
+class ContributorAdmin(admin.ModelAdmin):
+    list_display = ('last_names', 'first_names')
+    search_fields = ('last_names__startswith', 'first_names')
+    list_filter = ('last_names',)
+
+
 admin.site.register(Publisher)
-admin.site.register(Contributor)
+admin.site.register(Contributor, ContributorAdmin)
 admin.site.register(Book, BookAdmin)
 admin.site.register(BookContributor)
-admin.site.register(Review)
+admin.site.register(Review, ReviewAdmin)
